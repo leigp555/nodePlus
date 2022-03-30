@@ -108,11 +108,11 @@ const toRegister = () => {
 <style lang="scss" scoped>
 .wrap {
   max-width: 500px;
-  width: 100%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: 100%;
   .inner {
     padding: 0 20px;
     background-color: transparent;

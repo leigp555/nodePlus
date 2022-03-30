@@ -138,7 +138,6 @@ const toLogin = () => {
   emit('update:state', 'login')
 }
 </script>
-
 <style lang="scss" scoped>
 .wrap {
   max-width: 500px;

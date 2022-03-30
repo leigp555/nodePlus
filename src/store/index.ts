@@ -5,11 +5,19 @@ import RootStateTypes, { AllStateTypes } from './types'
 import numFactoryModule from './modules/NumFactory'
 
 export const store = createStore<RootStateTypes>({
-  state: {
-    text: 'This is Vuex Root.state.text'
+  state() {
+    return { currentKind: '' }
   },
-  getters: {},
-  mutations: {},
+  getters: {
+    getCurrentKind(state) {
+      return state.currentKind
+    }
+  },
+  mutations: {
+    modifyCurrentKind(state, payload) {
+      state.currentKind = payload
+    }
+  },
   actions: {},
   modules: {
     numFactoryModule

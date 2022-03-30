@@ -12,7 +12,7 @@
         </svg>
       </div>
     </div>
-    <NodeList />
+    <NodeList :articleInfo="articleInfo" />
   </div>
   <van-popup
     v-model:show="showKind"
@@ -36,7 +36,7 @@
 
 <script lang="ts">
 import { Popup } from 'vant'
-import { defineComponent, ref } from 'vue'
+import { defineComponent, reactive, ref } from 'vue'
 import NodeList from '@/components/NodeList.vue'
 
 export default defineComponent({
@@ -50,7 +50,28 @@ export default defineComponent({
       showKind.value = !showKind.value
     }
     const orderList = () => {}
-    return { kindVisible, orderList, showKind }
+    const articleInfo = reactive([
+      {
+        title: 'good day',
+        body: '今天是个好日子呀好日子呀好日子',
+        nodeId: '46541515651',
+        createAt: Date(),
+        updateAt: Date(),
+        favorite: false,
+        tags: ['ok', 'good', 'funk']
+      },
+      {
+        title: 'good day',
+        body: '今天是个好日子呀好日子呀好日子',
+        nodeId: '46541515651',
+        createAt: Date(),
+        updateAt: Date(),
+        favorite: false,
+        tags: ['ok', 'good', 'funk']
+      }
+    ])
+
+    return { kindVisible, orderList, showKind, articleInfo }
   }
 })
 </script>

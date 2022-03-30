@@ -1,117 +1,121 @@
 <template>
-  <div class="wrapper">
+  <div class="wrap">
     <a-list
-      class="demo-loadmore-list"
-      :loading="initLoading"
-      item-layout="vertical"
-      :data-source="list"
+      class="listWrap"
+      :loading="controlUpdate.initLoading"
+      item-layout="horizontal"
+      :data-source="articleInfo"
     >
+      <template #renderItem="{ item }">
+        <router-link to="">
+          <a-list-item>
+            <a-skeleton :title="false" :loading="controlUpdate.loading" active>
+              <a-list-item-meta :description="hiddenText(item.body)">
+                <template #title>
+                  <div class="titleWrapX">
+                    <div>
+                      <a-divider class="line" />
+                    </div>
+                    <div class="inner">
+                      <span id="nodeTitle" v-html="item.title"></span>
+                      <span> {{ formatTime(item.createAt) }}</span>
+                    </div>
+                  </div>
+                </template>
+              </a-list-item-meta>
+            </a-skeleton>
+          </a-list-item>
+        </router-link>
+      </template>
       <template #loadMore>
         <div
-          v-if="!initLoading && !loading"
+          v-if="!controlUpdate.initLoading && !controlUpdate.loading"
+          class="loadMore"
           :style="{
             textAlign: 'center',
-            marginTop: '12px',
+            marginTop: '16px',
             height: '32px',
             lineHeight: '32px'
           }"
         >
-          <a-button @click="onLoadMore">loading more</a-button>
+          <a-button v-if="!controlUpdate.end" @click="onLoadMore"
+            >加载更多</a-button
+          >
+          <div v-if="controlUpdate.end" class="noMore">
+            没有更多了, <a href="#">回到顶部?</a>
+          </div>
         </div>
-      </template>
-      <template #renderItem="{ item }">
-        <a-list-item>
-          <a-skeleton avatar :title="false" :loading="!!item.loading" active>
-            <a-list-item-meta
-              description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-            >
-              <template #title>
-                <a href="https://www.antdv.com/">{{ item.name.last }}</a>
-              </template>
-              <template #avatar>
-                <a-avatar :src="item.picture.large" />
-              </template>
-            </a-list-item-meta>
-          </a-skeleton>
-
-          <template #actions>
-            <div class="action">
-              <a key="list-loadmore-edit">编辑</a>
-              <a key="list-loadmore-more">收藏</a>
-              <a key="list-loadmore-more">删除</a>
-            </div>
-          </template>
-        </a-list-item>
       </template>
     </a-list>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent, onMounted, ref, nextTick } from 'vue'
+<script lang="ts" setup>
+import { defineProps, reactive, toRefs } from 'vue'
+import dayjs from 'dayjs'
 
-const count = 3
-const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`
-
-export default defineComponent({
-  setup() {
-    const initLoading = ref(true)
-    const loading = ref(false)
-    const data = ref([])
-    const list = ref([])
-    onMounted(() => {
-      fetch(fakeDataUrl)
-        .then(res => res.json())
-        .then(res => {
-          initLoading.value = false
-          data.value = res.results
-          list.value = res.results
-        })
-    })
-
-    const onLoadMore = () => {
-      loading.value = true
-      list.value = data.value.concat(
-        // @ts-ignore
-        [...new Array(count)].map(() => ({
-          loading: true,
-          name: {},
-          picture: {}
-        }))
-      )
-      fetch(fakeDataUrl)
-        .then(res => res.json())
-        .then(res => {
-          const newData = data.value.concat(res.results)
-          loading.value = false
-          data.value = newData
-          list.value = newData
-          nextTick(() => {
-            // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-            // In real scene, you can using public method of react-virtualized:
-            // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-            window.dispatchEvent(new Event('resize'))
-          })
-        })
-    }
-
-    return {
-      loading,
-      initLoading,
-      data,
-      list,
-      onLoadMore
-    }
+interface articleType {
+  articleInfo: {
+    title: string
+    body: string
+    nodeId: string
+    createAt: Date
+    updateAt: Date
+    favorite: boolean
+    tags: string[]
   }
+}
+const props = defineProps<articleType>()
+const { articleInfo } = toRefs(props)
+const controlUpdate = reactive({
+  initLoading: false,
+  loading: false,
+  end: false,
+  rangItem: 0
 })
+// 文字超长隐藏
+const hiddenText = (text: string) => {
+  if (text.length > 14) {
+    return `${text.substring(0, 14)}...`
+  }
+  return text
+}
+const formatTime = (time: string) => {
+  return dayjs(time).format('MM月DD日HH:mm')
+}
+const onLoadMore = () => {}
 </script>
+
 <style scoped lang="scss">
-.wrapper {
-  .demo-loadmore-list {
+.wrap {
+  padding: 0 20px;
+
+  > .listWrap {
     min-height: 350px;
   }
-  .action {
-    display: flex;
-    gap: 20px;
+
+  .noMore {
+    margin-top: 20px;
   }
+
+  .titleWrapX {
+    .inner {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .line {
+      margin-top: 0;
+      background-color: rgba(42, 42, 42, 0.2);
+    }
+  }
+}
+
+#nodeTitle {
+  max-width: 8em;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-bottom: 0;
 }
 </style>

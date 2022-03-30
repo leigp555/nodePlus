@@ -43,6 +43,10 @@ const routes = [
     ]
   },
   {
+    path: '/user/nodeList/:nodeId',
+    component: NodePage
+  },
+  {
     path: '/:pathMatch(.*)*',
     name: '404',
     component: NotFound

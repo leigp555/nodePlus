@@ -7,7 +7,7 @@ import { ElIcon, ElLoading, ElCard, ElButton } from 'element-plus'
  * @param app {App}
  */
 export default function styleImport(app: App) {
-  ;[ElButton, ElCard, ElLoading, ElIcon].forEach((v) => {
+  ;[ElButton, ElCard, ElLoading, ElIcon].forEach(v => {
     app.use(v)
   })
   return app

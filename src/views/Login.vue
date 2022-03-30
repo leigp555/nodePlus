@@ -107,12 +107,15 @@ const toRegister = () => {
 
 <style lang="scss" scoped>
 .wrap {
-  height: 100%;
-  position: relative;
+  max-width: 500px;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   .inner {
-    padding: 80px 20px 20px 20px;
-    background-color: #ffffff;
-
+    padding: 0 20px;
+    background-color: transparent;
     > .avatarWrap {
       display: flex;
       justify-content: center;
@@ -143,6 +146,18 @@ const toRegister = () => {
         }
       }
     }
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 </style>

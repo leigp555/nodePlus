@@ -16,15 +16,13 @@
           <a-button type="link" @click="showPopup">预览</a-button>
           <a-button type="link">保存</a-button>
         </div>
-        <h2>
-          <a-input
-            class="input"
-            v-model:value="article.title"
-            placeholder="请输入标题"
-            allow-clear
-            autofocus
-          />
-        </h2>
+        <a-input
+          class="inputTitle"
+          v-model:value="article.title"
+          placeholder="请输入标题"
+          allow-clear
+          autofocus
+        />
       </header>
       <main>
         <a-textarea v-model:value="article.body" placeholder="请输入文章内容" />
@@ -73,11 +71,13 @@ export default defineComponent({
 <style lang="scss" scoped>
 .wrapper {
   height: 100%;
+
   > .inner {
     padding: 0 15px;
     display: flex;
     flex-direction: column;
     height: 100%;
+
     header {
       .avatar {
         padding: 10px 0;
@@ -100,11 +100,7 @@ export default defineComponent({
         display: flex;
         justify-content: end;
       }
-      h2 {
-        padding-top: 10px;
-      }
-
-      .input {
+      .inputTitle {
         font-size: 1.5em;
         font-family: Georgia, 'Nimbus Roman No9 L', 'Songti SC',
           'Noto Serif CJK SC', 'Source Han Serif SC', 'Source Han Serif CN',
@@ -118,6 +114,7 @@ export default defineComponent({
     main {
       padding: 10px 0 20px 0;
       flex-grow: 100;
+
       textarea {
         min-height: 100% !important;
       }

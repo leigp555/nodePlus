@@ -25,6 +25,7 @@ declare module 'vue' {
     List: typeof import('./src/components/List.vue')['default']
     NodeList: typeof import('./src/components/NodeList.vue')['default']
     PreviewNode: typeof import('./src/components/PreviewNode.vue')['default']
+    Search: typeof import('./src/components/Search.vue')['default']
   }
 }
 

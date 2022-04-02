@@ -31,7 +31,7 @@
             ><span><search-outlined />搜索</span></template
           >
           <div class="show">
-            <NodeList :articleInfo="articleInfo" />
+            <Search />
           </div>
         </a-tab-pane>
       </a-tabs>
@@ -49,6 +49,7 @@ import { computed, reactive, ref, watchEffect } from 'vue'
 import { useStore } from 'vuex'
 import { key } from '@/store'
 import NodeList from '@/components/NodeList.vue'
+import Search from '@/components/Search.vue'
 
 const store = useStore(key)
 const currentKey = computed(() => {

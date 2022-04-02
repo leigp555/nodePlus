@@ -17,6 +17,7 @@ module.exports = {
   },
   plugins: ['vue', '@typescript-eslint'],
   rules: {
+    'semi':[0,'never'],
     'import/no-unresolved': 'off',
     'import/extensions': 'off',
     'import/no-absolute-path': 'off',
@@ -28,7 +29,9 @@ module.exports = {
         props: true,
         ignorePropertyModificationsFor: ['state', 'config']
       }
-    ]
+    ],
+
   },
-  settings: {}
+  settings: {
+  }
 }

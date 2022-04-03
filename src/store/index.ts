@@ -6,16 +6,23 @@ import numFactoryModule from './modules/NumFactory'
 
 export const store = createStore<RootStateTypes>({
   state() {
-    return { currentKind: '' }
+    return { data: { currentTab: 3 } }
   },
   getters: {
-    getCurrentKind(state) {
-      return state.currentKind
+    getCurrentTab(state) {
+      return state.data.currentTab
     }
   },
   mutations: {
-    modifyCurrentKind(state, payload) {
-      state.currentKind = payload
+    modifyCurrentTab(state, payload) {
+      state.data.currentTab = payload
+      window.localStorage.setItem('item1', JSON.stringify(state.data))
+    },
+    updateCurrentTab(state) {
+      const data = JSON.parse(window.localStorage.getItem('item1')!) || {
+        currentTab: 3
+      }
+      state.data.currentTab = data.currentTab
     }
   },
   actions: {},

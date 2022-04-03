@@ -1,7 +1,9 @@
 import NumFactoryStateTypes from './modules/NumFactory/types'
 
 export default interface RootStateTypes {
-  currentKind: string
+  data: {
+    currentTab: number
+  }
 }
 
 export interface AllStateTypes extends RootStateTypes {

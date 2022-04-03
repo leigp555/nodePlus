@@ -1,0 +1,20 @@
+前端路由
+/api/login    登录
+/api/register  注册
+
+/api/home     首页   //新增笔记页面
+点击后打开/api/home/markdown 
+点击后打开/api/home/normal
+
+/api/nodes    笔记历史页面
+点击打开  /api/nodes/nodeId
+
+/api/tools    打开工具页面
+点击画板跳转到 /api/tools/canvas
+点击画板跳转到 /api/tools/calendar
+
+/api/searcher  检索内容
+打开单个内容/api/searcher/nodeId
+
+/api/userInfo 打开用户界面的内容
+/api/userInfo/：nickname   修改单个用户信息

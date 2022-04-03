@@ -1,0 +1,338 @@
+1.登录
+前端路由 /api/login  
+
+ 提供数据
+{
+  "user":{
+    "email": "jake@jake.jake",
+    "password": "jakejake"
+  }
+}
+
+接口 POST /api/users/login
+
+成功返回 200
+{
+  "user": {
+    "email": "jake@jake.jake",
+    "token": "jwt.token.here",
+    "username": "jake",
+    "bio": "I work at statefarm",
+    "image": null，
+	"createdAt": "2016-02-18T03:22:56.637Z",
+    "updatedAt": "2016-02-18T03:48:35.824Z",
+  }
+}
+失败返回 403
+{
+  "errors":{
+    "body": [
+      "用户名户密码不匹配"
+    ]
+  }
+}
+
+2.注册
+前端路由 /api/register
+提供数据
+{
+  "user":{
+    "username": "Jacob",
+    "email": "jake@jake.jake",
+    "password": "jakejake"
+  }
+}
+接口 POST /api/users/register
+成功返回200
+{
+  "user": {
+    "email": "jake@jake.jake",
+    "username": "jake",
+    "bio": "I work at statefarm",
+    "image": null
+  }
+}
+失败返回 403
+{
+  "errors":{
+    "body": [
+      "用户名已存在请直接登录"
+    ]
+  }
+}
+
+
+
+3.获取当前的用户
+接口GET /api/user
+成功返回200
+{
+  "user": {
+    "email": "jake@jake.jake",
+    "username": "jake",
+    "bio": "I work at statefarm",
+    "image": null,
+	"createdAt": "2016-02-18T03:22:56.637Z",
+    "updatedAt": "2016-02-18T03:48:35.824Z",
+  }
+}
+失败 401
+{
+  "errors":{
+    "body": [
+      "请先登录"
+    ]
+  }
+}
+
+4 获取用户资料
+
+接口 GET /api/profiles
+成功返回 200
+{
+  "profile": {
+    "username": "jake",
+    "bio": "I work at statefarm",
+    "image": "https://api.realworld.io/images/smiley-cyrus.jpg",
+    "following": false,
+	"createdAt": "2016-02-18T03:22:56.637Z",
+    "updatedAt": "2016-02-18T03:48:35.824Z",
+  }
+}
+失败 401
+{
+  "errors":{
+    "body": [
+      "请先登录"
+    ]
+  }
+}
+
+5 更新用户
+PUT /api/user/:username
+ 提供数据
+{
+  "user":{
+     usernick:'sss'
+  }
+}
+返回数据 200
+{
+  "user": {
+    "email": "jake@jake.jake",
+    "token": "jwt.token.here",
+    "username": "jake",
+    "bio": "I work at statefarm",
+    "image": null
+	"createdAt": "2016-02-18T03:22:56.637Z",
+    "updatedAt": "2016-02-18T03:48:35.824Z",
+  }
+}
+
+失败 401
+{
+  "errors":{
+    "body": [
+      "请先登录"
+    ]
+  }
+}
+
+6 获取多篇文章
+
+GET /api/articles?author=jake?limit=20?offset=0
+
+返回数据
+{
+  "articles":[{
+    "articleId": "xxx",
+    "title": "How to train your dragon",
+    "description": "Ever wonder how?",
+    "body": "It takes a Jacobian",
+    "tagList": ["dragons", "training"],
+    "createdAt": "2016-02-18T03:22:56.637Z",
+    "updatedAt": "2016-02-18T03:48:35.824Z",
+    "favorited": false,
+    "favoritesCount": 0,
+    "author": {
+      "username": "jake",
+      "bio": "I work at statefarm",
+      "image": "https://i.stack.imgur.com/xHWG8.jpg",
+      "following": false
+    }
+  }, {
+    "articleId": "xxx",
+    "title": "How to train your dragon 2",
+    "description": "So toothless",
+    "body": "It a dragon",
+    "tagList": ["dragons", "training"],
+    "createdAt": "2016-02-18T03:22:56.637Z",
+    "updatedAt": "2016-02-18T03:48:35.824Z",
+    "favorited": false,
+    "favoritesCount": 0,
+    "author": {
+      "username": "jake",
+      "bio": "I work at statefarm",
+      "image": "https://i.stack.imgur.com/xHWG8.jpg",
+      "following": false
+    }
+  }],
+  "articlesCount": 2
+}
+
+
+失败 401
+{
+  "errors":{
+    "body": [
+      "请先登录"
+    ]
+  }
+}
+
+//获取单篇文章
+GET /api/articles/:articleId
+返回数据
+{
+  "article": {
+    "slug": "how-to-train-your-dragon",
+    "title": "How to train your dragon",
+    "description": "Ever wonder how?",
+    "body": "It takes a Jacobian",
+    "tagList": ["dragons", "training"],
+    "createdAt": "2016-02-18T03:22:56.637Z",
+    "updatedAt": "2016-02-18T03:48:35.824Z",
+    "favorited": false,
+    "favoritesCount": 0,
+    "author": {
+      "username": "jake",
+      "bio": "I work at statefarm",
+      "image": "https://i.stack.imgur.com/xHWG8.jpg",
+      "following": false
+    }
+  }
+}
+
+
+//创建文章
+POST /api/articles
+{
+  "article": {
+    "title": "How to train your dragon",
+    "description": "Ever wonder how?",
+    "body": "You have to believe",
+    "tagList": ["reactjs", "angularjs", "dragons"]
+  }
+}
+返回数据
+{
+  "article": {
+    "slug": "how-to-train-your-dragon",
+    "title": "How to train your dragon",
+    "description": "Ever wonder how?",
+    "body": "It takes a Jacobian",
+    "tagList": ["dragons", "training"],
+    "createdAt": "2016-02-18T03:22:56.637Z",
+    "updatedAt": "2016-02-18T03:48:35.824Z",
+    "favorited": false,
+    "favoritesCount": 0,
+    "author": {
+      "username": "jake",
+      "bio": "I work at statefarm",
+      "image": "https://i.stack.imgur.com/xHWG8.jpg",
+      "following": false
+    }
+  }
+}
+
+
+更新文章
+PUT /api/articles/:slug
+{
+  "article": {
+    "title": "How to train your dragon",
+    "description": "Ever wonder how?",
+    "body": "You have to believe",
+    "tagList": ["reactjs", "angularjs", "dragons"]
+  }
+}
+{
+  "article": {
+    "slug": "how-to-train-your-dragon",
+    "title": "How to train your dragon",
+    "description": "Ever wonder how?",
+    "body": "It takes a Jacobian",
+    "tagList": ["dragons", "training"],
+    "createdAt": "2016-02-18T03:22:56.637Z",
+    "updatedAt": "2016-02-18T03:48:35.824Z",
+    "favorited": false,
+    "favoritesCount": 0,
+    "author": {
+      "username": "jake",
+      "bio": "I work at statefarm",
+      "image": "https://i.stack.imgur.com/xHWG8.jpg",
+      "following": false
+    }
+  }
+}
+
+删除文章
+DELETE /api/articles/:slug
+
+返回值
+{
+  "article": {
+    "slug": "how-to-train-your-dragon",
+    "title": "How to train your dragon",
+    "description": "Ever wonder how?",
+    "body": "It takes a Jacobian",
+    "tagList": ["dragons", "training"],
+    "createdAt": "2016-02-18T03:22:56.637Z",
+    "updatedAt": "2016-02-18T03:48:35.824Z",
+    "favorited": false,
+    "favoritesCount": 0,
+    "author": {
+      "username": "jake",
+      "bio": "I work at statefarm",
+      "image": "https://i.stack.imgur.com/xHWG8.jpg",
+      "following": false
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

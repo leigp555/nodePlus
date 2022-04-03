@@ -19,81 +19,79 @@ import UserInfoList from '@/views/UserInfoList.vue'
 import NoResult from '@/views/NoResult.vue'
 import Nodes from '@/views/Nodes.vue'
 import CurrentInfo from '@/views/CurrentInfo.vue'
+import ComponentsWrap from '@/views/ConponentsWrap.vue'
 
 // 路由规则
 const routes = [
   {
-    path: '/',
-    name: '主界面',
-    component: Home,
-    children: [
-      { path: '', name: '添加笔记界面', component: AddNode },
-      { path: 'add', name: '添加笔记界面', component: AddNode },
-      { path: 'markdown', name: '注册', component: MarkDown },
-      { path: 'normal', name: '注册', component: Normal }
-    ]
-  },
-  {
-    path: '/api/home',
-    name: '主界面',
-    component: Home,
-    children: [
-      { path: '', name: '添加笔记界面', component: AddNode },
-      { path: 'add', name: '添加笔记界面', component: AddNode },
-      { path: 'markdown', name: '注册', component: MarkDown },
-      { path: 'normal', name: '注册', component: Normal }
-    ]
-  },
-  {
     path: '/api/enter',
-    name: 'enter',
     component: Enter,
     children: [
-      { path: '', name: 'login', component: Login },
-      { path: 'login', name: '登录', component: Login },
-      { path: 'register', name: '注册', component: Register }
+      { path: '', component: Login },
+      { path: 'login', component: Login },
+      { path: 'register', component: Register }
     ]
   },
   {
-    path: '/api/nodes',
-    name: '笔记本历史界面',
-    component: Nodes,
+    path: '/',
+    component: ComponentsWrap,
     children: [
-      { path: '', name: '笔记时间图', component: NodesHistory },
-      { path: 'nodeHistory', name: '笔记时间图', component: NodesHistory },
-      { path: 'list/nodeId', name: '笔记时间图', component: CurrentNode }
-    ]
-  },
-  {
-    path: '/api/tools',
-    name: '工具界面',
-    component: Nodes,
-    children: [
-      { path: '', name: '工具界面', component: Tools },
-      { path: 'canvas', name: '笔记时间图', component: Canvas },
-      { path: 'calendar', name: '笔记时间图', component: Calendar }
-    ]
-  },
-  {
-    path: 'api/searcher',
-    name: '内容检索界面',
-    component: Search,
-    children: [
-      { path: '', name: '空界面', component: NoResult },
-      { path: 'result', name: '有搜索结果页面', component: SearchResult },
-      { path: 'result/nodeId', name: '有搜索结果页面', component: CurrentNode }
-    ]
-  },
-  {
-    path: '/api/userInfo ',
-    name: '内容检索界面',
-    component: UserInfo,
-    children: [
-      { path: 'list', name: '用户信息列表界面', component: UserInfoList },
       {
-        path: 'list/:detail',
-        name: '具体修改哪一项信息',
-        component: CurrentInfo
+        path: '',
+        component: Home,
+        children: [
+          { path: '', component: AddNode },
+          { path: 'add', component: AddNode },
+          { path: 'markdown', component: MarkDown },
+          { path: 'normal', component: Normal }
+        ]
+      },
+      {
+        path: '/api/home',
+        component: Home,
+        children: [
+          { path: '', component: AddNode },
+          { path: 'add', component: AddNode },
+          { path: 'markdown', component: MarkDown },
+          { path: 'normal', component: Normal }
+        ]
+      },
+
+      {
+        path: '/api/nodes',
+        component: Nodes,
+        children: [
+          { path: '', component: NodesHistory },
+          { path: 'nodeHistory', component: NodesHistory },
+          { path: 'list/nodeId', component: CurrentNode }
+        ]
+      },
+      {
+        path: '/api/tools',
+        component: Nodes,
+        children: [
+          { path: '', component: Tools },
+          { path: 'canvas', component: Canvas },
+          { path: 'calendar', component: Calendar }
+        ]
+      },
+      {
+        path: '/api/searcher',
+        component: Search,
+        children: [
+          { path: '', component: NoResult },
+          { path: 'result', component: SearchResult },
+          { path: 'result/nodeId', component: CurrentNode }
+        ]
+      },
+      {
+        path: '/api/userInfo',
+        component: UserInfo,
+        children: [
+          { path: '', component: UserInfoList },
+          { path: 'list', component: UserInfoList },
+          { path: 'list/:detail', component: CurrentInfo }
+        ]
       }
     ]
   },

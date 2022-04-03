@@ -15,4 +15,4 @@ dist
 prettier.config.js
 /src/mock/*
 /public/icon.js
-
+components.d.ts

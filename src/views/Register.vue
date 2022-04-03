@@ -89,12 +89,13 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, defineEmits } from 'vue'
+import { reactive } from 'vue'
 import { RuleObject } from 'ant-design-vue/es/form'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
+import { useRouter } from 'vue-router'
 import { logType } from '@/common/types'
 
-const emit = defineEmits(['update:state'])
+const router = useRouter()
 const formState = reactive<logType>({
   username: '',
   password: '',
@@ -135,7 +136,7 @@ const onFinish = (value: { username: ''; password: '' }) => {
   console.log(value)
 }
 const toLogin = () => {
-  emit('update:state', 'login')
+  router.push('/api/enter/login')
 }
 </script>
 <style lang="scss" scoped>

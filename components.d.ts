@@ -22,7 +22,6 @@ declare module 'vue' {
     ATabs: typeof import('ant-design-vue/es')['Tabs']
     ATextarea: typeof import('ant-design-vue/es')['Textarea']
     Icon: typeof import('./src/components/Icon.vue')['default']
-    List: typeof import('./src/components/List.vue')['default']
     NodeList: typeof import('./src/components/NodeList.vue')['default']
     PreviewNode: typeof import('./src/components/PreviewNode.vue')['default']
     Search: typeof import('./src/components/Search.vue')['default']

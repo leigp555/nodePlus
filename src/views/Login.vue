@@ -70,11 +70,12 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, defineEmits } from 'vue'
+import { reactive } from 'vue'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
+import { useRouter } from 'vue-router'
 import { logType } from '@/common/types'
 
-const emit = defineEmits(['update:state'])
+const router = useRouter()
 const formState = reactive<logType>({
   username: '',
   password: '',
@@ -101,7 +102,7 @@ const onFinish = (value: { username: ''; password: '' }) => {
   console.log(value)
 }
 const toRegister = () => {
-  emit('update:state', 'register')
+  router.push('/api/enter/register')
 }
 </script>
 
@@ -146,18 +147,6 @@ const toRegister = () => {
         }
       }
     }
-  }
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
   }
 }
 </style>

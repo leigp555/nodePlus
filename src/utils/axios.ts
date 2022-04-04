@@ -69,3 +69,5 @@ instance.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+// eslint-disable-next-line import/prefer-default-export
+export const axiosX = instance

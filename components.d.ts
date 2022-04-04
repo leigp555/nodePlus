@@ -21,10 +21,20 @@ declare module 'vue' {
     ATabPane: typeof import('ant-design-vue/es')['TabPane']
     ATabs: typeof import('ant-design-vue/es')['Tabs']
     ATextarea: typeof import('ant-design-vue/es')['Textarea']
+    ATimeline: typeof import('ant-design-vue/es')['Timeline']
+    ATimelineItem: typeof import('ant-design-vue/es')['TimelineItem']
+    Breezy: typeof import('./src/components/weather/breezy.vue')['default']
+    Cloud: typeof import('./src/components/weather/cloud.vue')['default']
     Icon: typeof import('./src/components/Icon.vue')['default']
+    Night: typeof import('./src/components/weather/night.vue')['default']
     NodeList: typeof import('./src/components/NodeList.vue')['default']
     PreviewNode: typeof import('./src/components/PreviewNode.vue')['default']
     Search: typeof import('./src/components/Search.vue')['default']
+    Storm: typeof import('./src/components/weather/storm.vue')['default']
+    Sunny: typeof import('./src/components/weather/sunny.vue')['default']
+    TimeLine: typeof import('./src/components/TimeLine.vue')['default']
+    Weather: typeof import('./src/components/weather.vue')['default']
+    Whether: typeof import('./src/components/Whether.vue')['default']
   }
 }
 

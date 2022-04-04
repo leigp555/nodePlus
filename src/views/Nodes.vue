@@ -1,7 +1,28 @@
 <template>
-  <div></div>
+  <div class="wrap">
+    <div class="title">
+      <span>时间轴</span>
+    </div>
+    <div class="main">
+      <router-view />
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup></script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.wrap {
+  display: flex;
+  flex-direction: column;
+  .title {
+    font-size: 18px;
+    text-align: center;
+    padding: 10px;
+    background-color: #e0b62b;
+  }
+  .main {
+    flex-grow: 10;
+  }
+}
+</style>

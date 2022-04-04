@@ -20,7 +20,7 @@ import NoResult from '@/views/NoResult.vue'
 import Nodes from '@/views/Nodes.vue'
 import CurrentInfo from '@/views/CurrentInfo.vue'
 import ComponentsWrap from '@/views/ConponentsWrap.vue'
-
+import ToolList from '@/views/ToolList.vue'
 // 路由规则
 const routes = [
   {
@@ -63,16 +63,21 @@ const routes = [
         children: [
           { path: '', component: NodesHistory },
           { path: 'nodeHistory', component: NodesHistory },
-          { path: 'list/nodeId', component: CurrentNode }
+          { path: 'list/:nodeId', component: CurrentNode }
         ]
       },
       {
         path: '/api/tools',
-        component: Nodes,
+        component: Tools,
         children: [
-          { path: '', component: Tools },
-          { path: 'canvas', component: Canvas },
-          { path: 'calendar', component: Calendar }
+          {
+            path: '',
+            component: ToolList,
+            children: [
+              { path: 'canvas', component: Canvas },
+              { path: 'calendar', component: Calendar }
+            ]
+          }
         ]
       },
       {

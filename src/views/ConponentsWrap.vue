@@ -50,11 +50,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { Tabbar, TabbarItem } from 'vant'
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
-import { key } from '@/store'
+// import { useStore } from 'vuex'
+// import { key } from '@/store'
 
 const routeTable = {
   1: '/api/nodes',
@@ -70,12 +70,11 @@ export default defineComponent({
   },
   setup() {
     const router = useRouter()
-    const store = useStore(key)
+    // const store = useStore(key)
     const touchStart = ref<number[]>([0, 0])
     const touchEnd = ref<number[]>([0, 0])
     const navShow = ref<boolean>(true)
     onMounted(() => {
-      store.commit('updateCurrentTab')
       document.documentElement.addEventListener('touchstart', e => {
         touchStart.value[0] = e.touches[0].clientX
         touchStart.value[1] = e.touches[0].clientY
@@ -90,12 +89,16 @@ export default defineComponent({
         }
       })
     })
-    const active = computed(() => {
-      return store.getters.getCurrentTab
-    })
+    const active = ref<number>(3)
+    // eslint-disable-next-line
+    for (let key in routeTable) {
+      if (routeTable[key] === router.currentRoute.value.fullPath) {
+        active.value = parseInt(key, 10)
+      }
+    }
     const onChange = number => {
       router.push(routeTable[number])
-      store.commit('modifyCurrentTab', number)
+      active.value = number
     }
     return { onChange, active, navShow }
   }

@@ -2,7 +2,11 @@
   <teleport to="body">
     <div class="calendar-wrap">
       <div class="title">
-        <button @click="back">返回</button>
+        <button @click="back">
+          <svg class="icon" aria-hidden="true">
+            <use xlink:href="#icon-fanhui1"></use>
+          </svg>
+        </button>
         <span>日历</span>
         <button style="visibility: hidden">保存</button>
       </div>
@@ -56,8 +60,23 @@ export default defineComponent({
     display: flex;
     justify-content: space-between;
     align-items: center;
+    button {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .icon {
+        width: 1em;
+        height: 1em;
+        vertical-align: -0.15em;
+        fill: currentColor;
+        overflow: hidden;
+      }
+    }
   }
-  .main {
+  main {
     flex-grow: 10;
   }
 }

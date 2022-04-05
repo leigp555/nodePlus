@@ -11,5 +11,6 @@
 const add = (a: number, b: number): number => {
   return a + b
 }
-// @ts-ignore
-test('add', expect(add(1, 3)).toBe(4))
+test('adds 1 + 2 to equal 3', () => {
+  expect(add(1, 2)).toBe(3)
+})

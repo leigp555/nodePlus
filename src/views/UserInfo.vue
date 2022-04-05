@@ -1,60 +1,62 @@
+<script lang="ts" setup>
+import { reactive, ref } from 'vue'
+import { UserOutlined } from '@ant-design/icons-vue'
+
+const dataState = reactive({
+  isPunch: false,
+  nickName: '未登录',
+  totalPunch: 0,
+  totalDay: 0,
+  totalNode: 0
+})
+const avatarSrc = ref<string>('')
+const linkX = ref<string>('/userInfo')
+const punch = () => {}
+</script>
+
 <template>
   <div class="headerWrap">
-    userinfo
-    <!--    <div class="slideTop">-->
-    <!--      <div class="avatarWrap">-->
-    <!--        <router-link :to="linkX">-->
-    <!--          <a-avatar :size="42" :src="avatarSrc" class="avatar">-->
-    <!--            <template #icon>-->
-    <!--              <UserOutlined />-->
-    <!--            </template>-->
-    <!--          </a-avatar>-->
-    <!--        </router-link>-->
-    <!--        <span class="nickname">{{ dataState.nickName }}</span>-->
-    <!--      </div>-->
-    <!--      <a-button-->
-    <!--        type="primary"-->
-    <!--        v-if="dataState.isPunch"-->
-    <!--        class="button"-->
-    <!--        @click="punch"-->
-    <!--        >已打卡</a-button-->
-    <!--      >-->
-    <!--      <a-button type="primary" v-else class="button noPunch" @click="punch"-->
-    <!--        >未打卡</a-button-->
-    <!--      >-->
-    <!--    </div>-->
-    <!--    <div class="slideBottom">-->
-    <!--      <div class="punk">-->
-    <!--        <span>{{ dataState.totalPunch }}</span>-->
-    <!--        <span>已连续打卡</span>-->
-    <!--      </div>-->
-    <!--      <div class="totalDay">-->
-    <!--        <span>{{ dataState.totalDay }}</span>-->
-    <!--        <span>记录总天数</span>-->
-    <!--      </div>-->
-    <!--      <div class="totalNode">-->
-    <!--        <span>{{ dataState.totalNode }}</span>-->
-    <!--        <span>笔记总数</span>-->
-    <!--      </div>-->
-    <!--    </div>-->
+    <div class="slideTop">
+      <div class="avatarWrap">
+        <router-link :to="linkX">
+          <a-avatar :size="42" :src="avatarSrc" class="avatar">
+            <template #icon>
+              <UserOutlined />
+            </template>
+          </a-avatar>
+        </router-link>
+        <span class="nickname">{{ dataState.nickName }}</span>
+      </div>
+      <a-button
+        type="primary"
+        v-if="dataState.isPunch"
+        class="button"
+        @click="punch"
+        >已打卡</a-button
+      >
+      <a-button type="primary" v-else class="button noPunch" @click="punch"
+        >未打卡</a-button
+      >
+    </div>
+    <div class="slideBottom">
+      <div class="punk">
+        <span>{{ dataState.totalPunch }}</span>
+        <span>已连续打卡</span>
+      </div>
+      <div class="totalDay">
+        <span>{{ dataState.totalDay }}</span>
+        <span>记录总天数</span>
+      </div>
+      <div class="totalNode">
+        <span>{{ dataState.totalNode }}</span>
+        <span>笔记总数</span>
+      </div>
+    </div>
+  </div>
+  <div class="main">
+    <router-view />
   </div>
 </template>
-
-<script lang="ts" setup>
-// import { reactive, ref } from 'vue'
-// import { UserOutlined } from '@ant-design/icons-vue'
-//
-// const dataState = reactive({
-//   isPunch: false,
-//   nickName: '未登录',
-//   totalPunch: 0,
-//   totalDay: 0,
-//   totalNode: 0
-// })
-// const avatarSrc = ref<string>('')
-// const linkX = ref<string>('/userInfo')
-// const punch = () => {}
-</script>
 
 <style lang="scss" scoped>
 .headerWrap {

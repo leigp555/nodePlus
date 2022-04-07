@@ -8,7 +8,7 @@ module.exports = {
     'plugin:vue/vue3-essential',     //这里是个坑
     'airbnb-base',
     'plugin:prettier/recommended',
-    'plugin:jest/recommended'
+    'plugin:jest/recommended',
   ],
   parserOptions: {
     ecmaVersion: 12,
@@ -30,7 +30,6 @@ module.exports = {
         ignorePropertyModificationsFor: ['state', 'config']
       }
     ],
-
   },
   settings: {
   }

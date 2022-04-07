@@ -20,6 +20,7 @@ declare module 'vue' {
     AListItem: typeof import('ant-design-vue/es')['ListItem']
     AListItemMeta: typeof import('ant-design-vue/es')['ListItemMeta']
     AModal: typeof import('ant-design-vue/es')['Modal']
+    AResult: typeof import('ant-design-vue/es')['Result']
     ASkeleton: typeof import('ant-design-vue/es')['Skeleton']
     ASpace: typeof import('ant-design-vue/es')['Space']
     ATabPane: typeof import('ant-design-vue/es')['TabPane']

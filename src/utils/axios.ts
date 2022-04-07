@@ -73,11 +73,11 @@ const httpRequest = (url: string, type = 'GET', data = {}) => {
     }
     instance(option)
       .then(res => {
-        if (res.status === 200) {
+        if (res.status === 200 || res.status === 201) {
           resolve(res.data)
         } else {
           // 此处可统一处理非200-400之间的状态码
-          Toast.fail(res.data.msg)
+          // Toast.fail(res.data.msg)
           reject(res.data)
         }
       })

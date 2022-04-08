@@ -1,5 +1,5 @@
 import { Toast } from 'vant'
-import { user } from '@/common/types'
+import { articleReqType, user } from '@/common/types'
 import httpRequest from '@/utils/axios'
 
 const allHttpReq = {
@@ -27,6 +27,34 @@ const allHttpReq = {
         },
         () => {
           Toast.fail('用户名已存在')
+        }
+      )
+    })
+  },
+  addNode(data: articleReqType) {
+    return new Promise(resolve => {
+      httpRequest('/api/article/create', 'POST', {
+        article: data
+      }).then(
+        res => {
+          resolve(res)
+        },
+        () => {
+          Toast.fail('笔记未保存')
+        }
+      )
+    })
+  },
+  updateNode(data: articleReqType) {
+    return new Promise(resolve => {
+      httpRequest('/api/article/create', 'POST', {
+        article: data
+      }).then(
+        res => {
+          resolve(res)
+        },
+        () => {
+          Toast.fail('笔记未保存')
         }
       )
     })

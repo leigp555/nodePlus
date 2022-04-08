@@ -23,9 +23,11 @@ instance.defaults.transformRequest = data => qs.stringify(data)
 // 状态码大于400的都将视作失败
 instance.defaults.validateStatus = status => status >= 200 && status <= 400
 instance.interceptors.request.use(
-  config =>
+  config => {
     // 在发送请求之前做些什么
-    config,
+    console.log(config)
+    return config
+  },
   () =>
     // 对请求错误做些什么
     Promise.reject(new Error('请求未发送'))

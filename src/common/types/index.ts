@@ -16,3 +16,28 @@ export interface articleReqType {
   articleType: string
   belong: string
 }
+
+export interface nodesReqType {
+  belong: string
+  offset: number
+  limit: number
+}
+
+export interface articleType {
+  articleType: string
+  author: string
+  belong: string
+  body: string
+  createAt: string
+  favorite: string
+  tagList: []
+  title: string
+  updatedAt: string
+  __v: number
+  _id: string
+}
+
+export interface articleRseType {
+  articles: articleType[]
+  articlesCount: number
+}

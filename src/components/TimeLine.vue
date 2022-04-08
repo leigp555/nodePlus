@@ -1,28 +1,136 @@
+<script lang="ts" setup>
+import { Toast } from 'vant'
+import { ref, toRefs, defineProps, watchEffect, defineEmits } from 'vue'
+import {
+  HeartOutlined,
+  DeleteOutlined,
+  RedoOutlined
+} from '@ant-design/icons-vue'
+import { articleRseType, articleType } from '@/common/types'
+import allHttpReq from '@/utils/allHttpReq'
+
+const emit = defineEmits(['update:loading'])
+const props = defineProps<{ belong: string; loading: boolean }>()
+const { belong, loading } = toRefs(props)
+const source = ref<articleType[]>([])
+const offset = ref(0)
+const limit = ref(3)
+const noMore = ref(false)
+const httpReq = () => {
+  return new Promise(resolve => {
+    allHttpReq
+      .getNodes({
+        belong: belong.value,
+        limit: limit.value,
+        offset: offset.value
+      })
+      .then(response => {
+        const res = response as articleRseType
+        source.value = source.value.concat(res.articles)
+        resolve(res)
+      })
+  })
+}
+httpReq()
+watchEffect(() => {
+  if (loading.value) {
+    allHttpReq
+      .getNodes({
+        belong: belong.value,
+        limit: limit.value,
+        offset: offset.value
+      })
+      .then(response => {
+        const res = response as articleRseType
+        source.value = res.articles
+        emit('update:loading', false)
+        Toast('刷新成功')
+      })
+  }
+})
+
+const loadMore = () => {
+  if (!noMore.value) {
+    offset.value += 3
+    httpReq().then(response => {
+      const res = response as articleRseType
+      if (res.articles.length === 0) {
+        noMore.value = true
+      }
+    })
+  }
+}
+const deleteNode = (articleId: string) => {
+  allHttpReq
+    .deleteNode({
+      articleId
+    })
+    .then(() => {
+      allHttpReq
+        .getNodes({
+          belong: belong.value,
+          limit: limit.value,
+          offset: offset.value
+        })
+        .then(response => {
+          const res = response as articleRseType
+          source.value = res.articles
+        })
+    })
+}
+const cellectedNode = () => {}
+</script>
 <template>
-  <a-timeline class="list">
+  <div id="top"></div>
+  <a-timeline class="list" v-for="item in source" :key="item._id">
     <a-timeline-item color="green">
-      <router-link to="/api/nodes/list/1">
+      <router-link :to="`/api/nodes/list/${item._id}`">
         <div class="articleInfo">
-          <p class="title">标题</p>
-          <p class="body">Create services site 2015-09-01</p>
+          <p class="title">{{ item.title }}</p>
+          <p class="body">{{ item.body }}</p>
         </div>
       </router-link>
-    </a-timeline-item>
-    <a-timeline-item color="green">
-      <router-link to="/api/nodes/list/2">
-        <div class="articleInfo">
-          <p class="title">标题</p>
-          <p class="body">Create services site 2015-09-01</p>
-        </div>
-      </router-link>
+      <a-button
+        type="link"
+        @click.stop="cellectedNode"
+        v-if="belong !== 'garbage'"
+      >
+        <heart-outlined />
+        收藏
+      </a-button>
+      <a-button
+        type="link"
+        @click.stop="cellectedNode"
+        v-if="belong === 'garbage'"
+      >
+        <redo-outlined />
+        还原
+      </a-button>
+      <a-button
+        type="link"
+        @click.stop="deleteNode(item._id)"
+        v-if="belong === 'garbage'"
+        ><delete-outlined />彻底删除</a-button
+      >
+      <a-button
+        type="link"
+        @click.stop="deleteNode(item._id)"
+        v-if="belong !== 'garbage'"
+        ><delete-outlined />删除</a-button
+      >
     </a-timeline-item>
   </a-timeline>
+  <div class="more">
+    <a-button type="primary" class="loadMore" @click="loadMore" v-if="!noMore"
+      >加载更多</a-button
+    >
+    <p v-else class="loadMore">没有更多了,<a href="#">回到顶部</a></p>
+  </div>
 </template>
-
-<script lang="ts" setup></script>
 
 <style lang="scss" scoped>
 .list {
+  margin-top: 20px;
   .articleInfo {
     border: 1px solid rgba(0, 0, 0, 0.2);
     padding: 8px;
@@ -49,5 +157,10 @@
       white-space: nowrap;
     }
   }
+}
+.more {
+  padding-bottom: 120px;
+  display: flex;
+  justify-content: center;
 }
 </style>

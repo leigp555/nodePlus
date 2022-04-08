@@ -1,5 +1,5 @@
 import { Toast } from 'vant'
-import { articleReqType, user } from '@/common/types'
+import { articleReqType, nodesReqType, user } from '@/common/types'
 import httpRequest from '@/utils/axios'
 
 const allHttpReq = {
@@ -41,6 +41,45 @@ const allHttpReq = {
         },
         () => {
           Toast.fail('笔记未保存')
+        }
+      )
+    })
+  },
+  getNodes(data: nodesReqType) {
+    return new Promise(resolve => {
+      httpRequest('/api/article/articleList', 'GET', data).then(
+        res => {
+          resolve(res)
+        },
+        () => {
+          Toast.fail('列表获取失败，请重试')
+        }
+      )
+    })
+  },
+  getCurrentNode(data: { articleId?: string }) {
+    return new Promise(resolve => {
+      httpRequest('/api/article/currentArticle', 'GET', data).then(
+        res => {
+          resolve(res)
+        },
+        () => {
+          Toast.fail('文章获取失败，请重试')
+        }
+      )
+    })
+  },
+  deleteNode(data: { articleId?: string }) {
+    return new Promise(resolve => {
+      httpRequest(
+        `/api/article/deleteArticle?articleId=${data.articleId}`,
+        'DELETE'
+      ).then(
+        res => {
+          resolve(res)
+        },
+        () => {
+          Toast.fail('删除失败，请重试')
         }
       )
     })

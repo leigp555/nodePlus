@@ -1,26 +1,5 @@
-<template>
-  <div class="wrap">
-    <van-pull-refresh v-model="loading" @refresh="onRefresh" class="refresh">
-      <van-tabs v-model:active="activeName">
-        <van-tab title="笔记" name="a">
-          a
-          <TimeLine />
-        </van-tab>
-        <van-tab title="收藏" name="b">
-          b
-          <TimeLine />
-        </van-tab>
-        <van-tab title="回收站" name="c">
-          c
-          <TimeLine />
-        </van-tab>
-      </van-tabs>
-    </van-pull-refresh>
-  </div>
-</template>
-
 <script lang="ts">
-import { PullRefresh, Toast, Tab, Tabs } from 'vant'
+import { PullRefresh, Tab, Tabs } from 'vant'
 import { defineComponent, ref } from 'vue'
 import TimeLine from '@/components/TimeLine.vue'
 
@@ -32,22 +11,34 @@ export default defineComponent({
     [Tabs.name]: Tabs
   },
   setup() {
-    const loading = ref(true)
-    const activeName = ref('a')
+    const loading = ref(false)
     const onRefresh = () => {
-      setTimeout(() => {
-        Toast('刷新成功')
-        loading.value = false
-      }, 1000)
+      loading.value = true
     }
     return {
       loading,
-      onRefresh,
-      activeName
+      onRefresh
     }
   }
 })
 </script>
+<template>
+  <div class="wrap">
+    <van-pull-refresh v-model="loading" @refresh="onRefresh" class="refresh">
+      <van-tabs>
+        <van-tab title="笔记" name="a">
+          <TimeLine belong="node" v-model:loading="loading" />
+        </van-tab>
+        <van-tab title="收藏" name="b">
+          <TimeLine belong="favorite" v-model:loading="loading" />
+        </van-tab>
+        <van-tab title="回收站" name="c">
+          <TimeLine belong="garbage" v-model:loading="loading" />
+        </van-tab>
+      </van-tabs>
+    </van-pull-refresh>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .wrap {

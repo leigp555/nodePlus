@@ -1,3 +1,24 @@
+<script lang="ts" setup>
+import { UserOutlined } from '@ant-design/icons-vue'
+import { Toast } from 'vant'
+import { reactive } from 'vue'
+import allHttpReq from '@/utils/allHttpReq'
+import { articleReqType } from '@/common/types'
+import nodeInitString from '@/utils/articleExample'
+
+const article = reactive<articleReqType>({
+  title: '',
+  body: nodeInitString,
+  favorite: 'false',
+  articleType: 'normal',
+  belong: 'node'
+})
+const save = () => {
+  allHttpReq.addNode(article).then(() => {
+    Toast.success('文章已保存')
+  })
+}
+</script>
 <template>
   <div class="wrapper">
     <div class="inner">
@@ -11,8 +32,7 @@
           <span class="description">编辑与5小时前</span>
         </div>
         <div class="action">
-          <a-button type="link">收藏</a-button>
-          <a-button type="link">保存</a-button>
+          <a-button type="link" @click="save">保存</a-button>
         </div>
         <a-input
           class="inputTitle"
@@ -29,16 +49,6 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import { UserOutlined } from '@ant-design/icons-vue'
-import { reactive } from 'vue'
-import nodeInitString from '@/utils/articleExample'
-
-const article = reactive({
-  title: '',
-  body: nodeInitString
-})
-</script>
 <style lang="scss" scoped>
 .wrapper {
   height: 100%;

@@ -2,7 +2,6 @@
 import { Popup, Toast } from 'vant'
 import { UserOutlined } from '@ant-design/icons-vue'
 import { defineComponent, reactive, ref } from 'vue'
-import { useRoute } from 'vue-router'
 import { articleReqType } from '@/common/types'
 import allHttpReq from '@/utils/allHttpReq'
 import PreviewNode from '@/components/PreviewNode.vue'
@@ -15,36 +14,23 @@ export default defineComponent({
     PreviewNode
   },
   setup() {
-    const route = useRoute()
-    const articleType = route.path.split('/').pop()!.toString() || 'markdown'
     const article = reactive<articleReqType>({
       title: '',
       body: nodeInitString,
       favorite: 'false',
-      articleType
+      articleType: 'markdown',
+      belong: 'node'
     })
     const show = ref<boolean>(false)
     const showPopup = () => {
       show.value = true
     }
-    const isFavorite = () => {
-      if (article.favorite === 'false') {
-        article.favorite = 'true'
-      } else {
-        article.favorite = 'false'
-      }
-      allHttpReq.updateNode(article).then(res => {
-        console.log(res)
-        Toast.success('文章已修改')
-      })
-    }
     const save = () => {
-      allHttpReq.addNode(article).then(res => {
-        console.log(res)
+      allHttpReq.addNode(article).then(() => {
         Toast.success('文章已保存')
       })
     }
-    return { article, show, showPopup, isFavorite, save }
+    return { article, show, showPopup, save }
   }
 })
 </script>
@@ -62,7 +48,6 @@ export default defineComponent({
           <span class="description">编辑与5小时前</span>
         </div>
         <div class="action">
-          <a-button type="link" @click="isFavorite">收藏</a-button>
           <a-button type="link" @click="showPopup">预览</a-button>
           <a-button type="link" @click="save">保存</a-button>
         </div>

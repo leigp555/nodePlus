@@ -14,4 +14,5 @@ export interface articleReqType {
   body: string
   favorite: string
   articleType: string
+  belong: string
 }

@@ -47,7 +47,7 @@ const allHttpReq = {
   },
   updateNode(data: articleReqType) {
     return new Promise(resolve => {
-      httpRequest('/api/article/create', 'POST', {
+      httpRequest('/api/article/updateArticle', 'PUT', {
         article: data
       }).then(
         res => {

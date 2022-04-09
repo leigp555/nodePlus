@@ -53,11 +53,11 @@ export default defineComponent({
     }
     const articleId = route.path.split('/').pop()
     allHttpReq.getCurrentNode({ articleId }).then(response => {
-      const res = response as { article: articleType }
+      const res = response as { article: articleType[] }
       /* eslint-disable */
       for (let key in hash) {
         //@ts-ignore
-        article[key] = res.article[key]
+        article[key] = res.article[0][key]
       }
     })
 

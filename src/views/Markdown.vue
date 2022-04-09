@@ -5,7 +5,6 @@ import { defineComponent, reactive, ref } from 'vue'
 import { articleReqType } from '@/common/types'
 import allHttpReq from '@/utils/allHttpReq'
 import PreviewNode from '@/components/PreviewNode.vue'
-import nodeInitString from '@/utils/articleExample'
 
 export default defineComponent({
   components: {
@@ -16,7 +15,7 @@ export default defineComponent({
   setup() {
     const article = reactive<articleReqType>({
       title: '',
-      body: nodeInitString,
+      body: '',
       favorite: 'false',
       articleType: 'markdown',
       belong: 'node'

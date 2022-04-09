@@ -4,11 +4,10 @@ import { Toast } from 'vant'
 import { reactive } from 'vue'
 import allHttpReq from '@/utils/allHttpReq'
 import { articleReqType } from '@/common/types'
-import nodeInitString from '@/utils/articleExample'
 
 const article = reactive<articleReqType>({
   title: '',
-  body: nodeInitString,
+  body: '',
   favorite: 'false',
   articleType: 'normal',
   belong: 'node'

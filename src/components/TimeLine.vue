@@ -152,7 +152,7 @@ const backToTop = () => {
         @click.stop="cellectedNode(item._id)"
         v-if="belong !== 'garbage'"
       >
-        <heart-outlined />
+        <heart-outlined :class="{ favorite: item.belong === 'favorite' }" />
         收藏
       </a-button>
       <a-button
@@ -222,5 +222,8 @@ const backToTop = () => {
   padding-top: 50px;
   display: flex;
   justify-content: center;
+}
+.favorite {
+  color: red;
 }
 </style>

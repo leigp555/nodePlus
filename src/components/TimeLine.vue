@@ -133,6 +133,9 @@ const completeDelete = (articleId: string) => {
         })
     })
 }
+const backToTop = () => {
+  window.scrollTo(0, 0)
+}
 </script>
 <template>
   <div id="top"></div>
@@ -178,7 +181,9 @@ const completeDelete = (articleId: string) => {
     <a-button type="primary" class="loadMore" @click="loadMore" v-if="!noMore"
       >加载更多</a-button
     >
-    <p v-else class="loadMore">没有更多了,<a href="#">回到顶部</a></p>
+    <p v-else class="loadMore">
+      没有更多了,<a-button type="link" @click="backToTop">回到顶部?</a-button>
+    </p>
   </div>
 </template>
 

@@ -33,8 +33,7 @@ export default defineComponent({
       show.value = true
     }
     const save = () => {
-      allHttpReq.updateNode(article).then(res => {
-        console.log(res)
+      allHttpReq.updateNode(article).then(() => {
         Toast.success('文章已保存')
       })
     }

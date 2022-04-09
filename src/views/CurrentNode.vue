@@ -1,9 +1,9 @@
 <script lang="ts">
-import { Popup } from 'vant'
+import { Popup, Toast } from 'vant'
 import { UserOutlined } from '@ant-design/icons-vue'
 import { defineComponent, reactive, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { articleReqType, articleType } from '@/common/types'
+import { articleType } from '@/common/types'
 import allHttpReq from '@/utils/allHttpReq'
 import PreviewNode from '@/components/PreviewNode.vue'
 
@@ -15,27 +15,51 @@ export default defineComponent({
   },
   setup() {
     const route = useRoute()
-    const article = reactive<articleReqType>({
-      title: '',
-      body: '',
-      favorite: '',
+    const article = reactive<articleType>({
       articleType: '',
-      belong: ''
+      author: '',
+      belong: '',
+      body: '',
+      createAt: '',
+      favorite: '',
+      tagList: [],
+      title: '',
+      updatedAt: '',
+      __v: 0,
+      _id: ''
     })
     const show = ref<boolean>(false)
     const showPopup = () => {
       show.value = true
     }
     const save = () => {
-      // allHttpReq.addNode(article).then(() => {
-      //   Toast.success('文章已保存')
-      // })
+      allHttpReq.updateNode(article).then(res => {
+        console.log(res)
+        Toast.success('文章已保存')
+      })
+    }
+
+    const hash: articleType = {
+      articleType: '',
+      author: '',
+      belong: '',
+      body: '',
+      createAt: '',
+      favorite: '',
+      tagList: [],
+      title: '',
+      updatedAt: '',
+      __v: 0,
+      _id: ''
     }
     const articleId = route.path.split('/').pop()
     allHttpReq.getCurrentNode({ articleId }).then(response => {
       const res = response as { article: articleType }
-      article.title = res.article.title
-      article.body = res.article.body
+      /* eslint-disable */
+      for (let key in hash) {
+        //@ts-ignore
+        article[key] = res.article[key]
+      }
     })
 
     return { article, show, showPopup, save }

@@ -78,7 +78,61 @@ const deleteNode = (articleId: string) => {
         })
     })
 }
-const cellectedNode = () => {}
+const cellectedNode = (articleId: string) => {
+  allHttpReq
+    .cellected({
+      articleId
+    })
+    .then(() => {
+      allHttpReq
+        .getNodes({
+          belong: belong.value,
+          limit: limit.value,
+          offset: offset.value
+        })
+        .then(response => {
+          const res = response as articleRseType
+          source.value = res.articles
+        })
+    })
+}
+const resetNode = (articleId: string) => {
+  allHttpReq
+    .resetNode({
+      articleId
+    })
+    .then(() => {
+      allHttpReq
+        .getNodes({
+          belong: belong.value,
+          limit: limit.value,
+          offset: offset.value
+        })
+        .then(response => {
+          const res = response as articleRseType
+          source.value = res.articles
+        })
+    })
+}
+
+const completeDelete = (articleId: string) => {
+  allHttpReq
+    .completeDelete({
+      articleId
+    })
+    .then(() => {
+      allHttpReq
+        .getNodes({
+          belong: belong.value,
+          limit: limit.value,
+          offset: offset.value
+        })
+        .then(response => {
+          const res = response as articleRseType
+          source.value = res.articles
+        })
+    })
+}
 </script>
 <template>
   <div id="top"></div>
@@ -92,7 +146,7 @@ const cellectedNode = () => {}
       </router-link>
       <a-button
         type="link"
-        @click.stop="cellectedNode"
+        @click.stop="cellectedNode(item._id)"
         v-if="belong !== 'garbage'"
       >
         <heart-outlined />
@@ -100,7 +154,7 @@ const cellectedNode = () => {}
       </a-button>
       <a-button
         type="link"
-        @click.stop="cellectedNode"
+        @click.stop="resetNode(item._id)"
         v-if="belong === 'garbage'"
       >
         <redo-outlined />
@@ -108,7 +162,7 @@ const cellectedNode = () => {}
       </a-button>
       <a-button
         type="link"
-        @click.stop="deleteNode(item._id)"
+        @click.stop="completeDelete(item._id)"
         v-if="belong === 'garbage'"
         ><delete-outlined />彻底删除</a-button
       >
@@ -160,6 +214,7 @@ const cellectedNode = () => {}
 }
 .more {
   padding-bottom: 120px;
+  padding-top: 50px;
   display: flex;
   justify-content: center;
 }

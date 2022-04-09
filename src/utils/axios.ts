@@ -3,7 +3,7 @@ import qs from 'qs'
 import { Toast } from 'vant'
 
 const instance = axios.create()
-const AUTH_TOKEN = window.localStorage.getItem('_AUTH_TOKEN')
+const AUTH_TOKEN = () => window.localStorage.getItem('_AUTH_TOKEN')
 // @ts-ignore
 if (process.env.NODE_ENV === 'production') {
   instance.defaults.baseURL = 'http://api.com'
@@ -16,7 +16,6 @@ if (process.env.NODE_ENV === 'production') {
 instance.defaults.baseURL = 'http://localhost:8000'
 instance.defaults.timeout = 8000
 instance.defaults.withCredentials = false
-instance.defaults.headers.common.Authorization = AUTH_TOKEN
 instance.defaults.headers.post['Content-Type'] =
   'application/x-www-form-urlencoded'
 instance.defaults.transformRequest = data => qs.stringify(data)
@@ -25,7 +24,7 @@ instance.defaults.validateStatus = status => status >= 200 && status <= 400
 instance.interceptors.request.use(
   config => {
     // 在发送请求之前做些什么
-    console.log(config)
+    config.headers.common.Authorization = AUTH_TOKEN()
     return config
   },
   () =>

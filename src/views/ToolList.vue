@@ -1,3 +1,32 @@
+<script lang="ts" setup>
+import { ref } from 'vue'
+import Whether from '@/components/weather.vue'
+import allHttpReq from '@/utils/allHttpReq'
+
+const fyInput = ref<string>('')
+const fyResult = ref<string>('')
+const from = ref('zh')
+const to = ref('en')
+const translate = () => {
+  allHttpReq
+    .translate({ content: fyInput.value, from: from.value, to: to.value })
+    .then(response => {
+      const res = response as { result: string }
+      fyResult.value = res.result
+    })
+}
+const lang = ref<string>('中译英')
+const langChange = () => {
+  if (lang.value === '中译英') {
+    from.value = 'zh'
+    to.value = 'en'
+  } else if (lang.value === '英译中') {
+    from.value = 'en'
+    to.value = 'zh'
+  }
+}
+</script>
+
 <template>
   <div class="wrap">
     <div class="weather">
@@ -9,6 +38,21 @@
       <div class="transResult">
         <div class="input">
           <p>请输入要翻译的内容：</p>
+          <div class="content">
+            <a-select
+              ref="select"
+              v-model:value="lang"
+              style="width: 120px"
+              @change="langChange"
+            >
+              <a-select-option value="中译英">中译英</a-select-option>
+              <a-select-option value="英译中">英译中</a-select-option>
+            </a-select>
+            <a-button type="primary" @click="translate" class="translate"
+              >翻译</a-button
+            >
+          </div>
+
           <a-textarea
             v-model:value="fyInput"
             placeholder="请输入要翻译的内容"
@@ -47,14 +91,6 @@
   <router-view />
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue'
-import Whether from '@/components/weather.vue'
-
-const fyInput = ref<string>('xxx')
-const fyResult = ref<string>('fsdfs ')
-</script>
-
 <style lang="scss" scoped>
 .wrap {
   padding: 10px;
@@ -74,6 +110,13 @@ const fyResult = ref<string>('fsdfs ')
       display: flex;
       flex-direction: column;
       gap: 20px;
+      .content {
+        display: flex;
+        justify-content: start;
+        gap: 10px;
+        .translate {
+        }
+      }
     }
   }
   .tools {

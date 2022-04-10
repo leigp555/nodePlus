@@ -1,3 +1,16 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import NoResult from '@/views/NoResult.vue'
+import SearchResult from '@/views/SearchResult.vue'
+
+const value = ref<string>('')
+const loading = ref<boolean>(false)
+const newContent = ref<boolean>(false)
+const onSearch = () => {
+  newContent.value = true
+}
+</script>
+
 <template>
   <div class="wrap">
     <div class="title">
@@ -10,21 +23,16 @@
           placeholder="请输入检索内容"
           :loading="loading"
           enter-button
+          @input="onSearch"
         />
       </div>
       <div class="main">
-        <router-view />
+        <NoResult v-if="!value" />
+        <SearchResult v-else :value="value" v-model:new-content="newContent" />
       </div>
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const value = ref<string>('')
-const loading = ref<boolean>(false)
-</script>
 
 <style lang="scss" scoped>
 .wrap {

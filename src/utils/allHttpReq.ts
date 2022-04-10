@@ -1,5 +1,11 @@
 import { Toast } from 'vant'
-import { articleReqType, articleType, nodesReqType, user } from '@/common/types'
+import {
+  articleReqType,
+  articleType,
+  nodesReqType,
+  user,
+  userInfoType
+} from '@/common/types'
 import httpRequest from '@/utils/axios'
 
 const allHttpReq = {
@@ -150,6 +156,57 @@ const allHttpReq = {
         },
         () => {
           Toast.fail('删除失败，请重试')
+        }
+      )
+    })
+  },
+  translate(data: { content: string; from: string; to: string }) {
+    return new Promise(resolve => {
+      httpRequest(`/api/translate/`, 'GET', data).then(
+        res => {
+          resolve(res)
+        },
+        () => {
+          Toast.fail('翻译失败，请重试')
+        }
+      )
+    })
+  },
+  // 检索
+  search(data: { content: string }) {
+    return new Promise(resolve => {
+      httpRequest(`/api/article/search/`, 'GET', data).then(
+        res => {
+          resolve(res)
+        },
+        () => {
+          Toast.fail('查询失败，请重试')
+        }
+      )
+    })
+  },
+  // 更新用户资料
+  updateUserInfo(data: userInfoType) {
+    return new Promise(resolve => {
+      httpRequest(`/api/users/updateUser`, 'PUT', data).then(
+        res => {
+          resolve(res)
+        },
+        () => {
+          Toast.fail('更新失败，请重试')
+        }
+      )
+    })
+  },
+  // 获取当前用户资料
+  getUserInfo() {
+    return new Promise(resolve => {
+      httpRequest(`/api/users/currentUser`, 'GET').then(
+        res => {
+          resolve(res)
+        },
+        () => {
+          Toast.fail('查询失败，请重试')
         }
       )
     })

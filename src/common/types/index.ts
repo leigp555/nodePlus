@@ -41,3 +41,20 @@ export interface articleRseType {
   articles: articleType[]
   articlesCount: number
 }
+
+export interface userType {
+  avatar: string
+  bio: string
+  email: string
+  username: string
+  _id: string
+}
+
+export interface userInfoType {
+  avatar: string
+  username: string
+  email: string
+  gender: string
+  location: string
+  phoneNumber: string
+}

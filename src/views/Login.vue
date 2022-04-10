@@ -2,7 +2,7 @@
 import { reactive } from 'vue'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
 import { useRouter } from 'vue-router'
-import { logType, user } from '@/common/types'
+import { logType, user, userType } from '@/common/types'
 import allHttpReq from '@/utils/allHttpReq'
 
 const router = useRouter()
@@ -11,6 +11,7 @@ const formState = reactive<logType>({
   password: '',
   avatarSrc: ''
 })
+formState.avatarSrc = window.localStorage.getItem('avatar') || undefined
 // 校验
 const verifyUserName = [
   { required: true, message: '请填写邮箱' },
@@ -29,8 +30,10 @@ const verifyPassWord = [
   }
 ]
 const onFinish = (value: user) => {
-  allHttpReq.login(value).then(res => {
+  allHttpReq.login(value).then(response => {
+    const res = response as { msg: string; token: string; user: userType }
     window.localStorage.setItem('_AUTH_TOKEN', res.token)
+    window.localStorage.setItem('avatar', res.user.avatar)
     router.push('/api/home')
   })
 }

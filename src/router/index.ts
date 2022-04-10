@@ -18,7 +18,6 @@ import UserInfo from '@/views/UserInfo.vue'
 import UserInfoList from '@/views/UserInfoList.vue'
 import NoResult from '@/views/NoResult.vue'
 import Nodes from '@/views/Nodes.vue'
-import CurrentInfo from '@/views/CurrentInfo.vue'
 import ComponentsWrap from '@/views/ConponentsWrap.vue'
 import ToolList from '@/views/ToolList.vue'
 // 路由规则
@@ -86,7 +85,7 @@ const routes = [
         children: [
           { path: '', component: NoResult },
           { path: 'result', component: SearchResult },
-          { path: 'result/nodeId', component: CurrentNode }
+          { path: 'list/nodeId', component: CurrentNode }
         ]
       },
       {
@@ -94,8 +93,7 @@ const routes = [
         component: UserInfo,
         children: [
           { path: '', component: UserInfoList },
-          { path: 'list', component: UserInfoList },
-          { path: 'list/:detail', component: CurrentInfo }
+          { path: 'list', component: UserInfoList }
         ]
       }
     ]
